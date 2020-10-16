@@ -36,6 +36,7 @@ int relay_on (int mod_num) {
 		case 2:
 			gpioSetMode(17, PI_OUTPUT);
 			gpioWrite(17, 0);
+			break;
 		default:
 			printf("Invalid relay\n");
 			return FAIL;
@@ -61,6 +62,7 @@ int relay_off (int mod_num) {
 		case 2:
 			gpioSetMode(17, PI_OUTPUT);
 			gpioWrite(17, 1);
+			break;
 		default:
 			printf("Invalid relay\n");
 			return FAIL;

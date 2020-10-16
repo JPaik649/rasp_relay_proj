@@ -13,7 +13,7 @@ int main() {
 	struct sockaddr_in address;
 	//int opt = 1;
 	int addrlen = sizeof(address);
-	char buffer[1024] = {0};
+	char buffer[64] = {};
 
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server_fd == 0) {
@@ -44,8 +44,7 @@ int main() {
 		}
 		printf("Connected\n");
 
-		while (strncmp(buffer, "CLOSE", 5) != 0) {
-			read(new_socket, buffer, 1024);
+		while (read(new_socket, buffer, 64)) {
 			printf("%s\n", buffer);
 			if (strncmp(buffer, "SWITCH", 6) == 0) {
 				int moduel_no = ((int) buffer[6]) - 48;
@@ -56,6 +55,7 @@ int main() {
 					relay_off(moduel_no);
 				}
 			}
+			memset(buffer, 0, sizeof(buffer));
 		}
 		close(new_socket);
 	}
